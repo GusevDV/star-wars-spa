@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 
-import App from '../App';
+import Home from '../Home';
 
-describe('App', () => {
+describe('Home', () => {
   it('renders headline', () => {
-    render(<App />);
+    render(<Home />);
     const welcomeText = screen.getByText('Welcome');
 
     expect(welcomeText).toBeInTheDocument();
