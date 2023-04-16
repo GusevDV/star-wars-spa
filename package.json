@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "type-check": "tsc --pretty --noEmit",
+    "prettier": "npx prettier --config .prettierrc --write src/**/*.{tsx,ts}",
+    "lint": "eslint . --ext ts --ext tsx --ext js src/",
+    "lint:write": "eslint --fix --ext ts --ext tsx --ext js --color src/"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -18,8 +22,19 @@
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
     "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-sonarjs": "^0.19.0",
     "jsdom": "^21.1.1",
+    "prettier": "^2.8.7",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vitest": "^0.30.1"
