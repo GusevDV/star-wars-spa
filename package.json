@@ -8,10 +8,12 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "test:ci": "vitest run",
     "type-check": "tsc --pretty --noEmit",
     "prettier": "npx prettier --config .prettierrc --write src/**/*.{tsx,ts}",
     "lint": "eslint . --ext ts --ext tsx --ext js src/",
-    "lint:write": "eslint --fix --ext ts --ext tsx --ext js --color src/"
+    "lint:write": "eslint --fix --ext ts --ext tsx --ext js --color src/",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -33,11 +35,19 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-sonarjs": "^0.19.0",
+    "husky": "^8.0.3",
     "jsdom": "^21.1.1",
+    "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.30.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "npm run prettier",
+      "npm run lint:write"
+    ]
   }
 }
