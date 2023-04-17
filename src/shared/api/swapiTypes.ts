@@ -34,9 +34,13 @@ export type PaginatedRequest = {
 
 export type GetAllPeopleRequest = (SearchRequest & PaginatedRequest) | void;
 
-export type GetAllPeopleResponse = {
+export type GetAllPeopleResponse<T> = {
   count: number;
   next: string;
   previous: string | null;
-  results: Array<People>;
+  results: Array<T>;
+};
+
+export type GetAllPeopleTransformedResponse = GetAllPeopleResponse<People & { id: number }> & {
+  nextPage: number;
 };
