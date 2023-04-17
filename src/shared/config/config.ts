@@ -1,1 +1,1 @@
-export const SWAPI_PREFIX = import.meta.env.SWAPI_PREFIX || '/api';
+export const SWAPI_URL = import.meta.env.SWAPI_URL || 'https://swapi.dev/api';

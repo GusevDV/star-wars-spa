@@ -1,2 +1,2 @@
-export { SWAPI_PREFIX } from './config';
+export { SWAPI_URL } from './config';
 export { routes } from './routes';
