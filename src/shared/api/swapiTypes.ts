@@ -36,11 +36,12 @@ export type GetAllPeopleRequest = (SearchRequest & PaginatedRequest) | void;
 
 export type GetAllPeopleResponse<T> = {
   count: number;
-  next: string;
+  next: string | null;
   previous: string | null;
   results: Array<T>;
 };
 
 export type GetAllPeopleTransformedResponse = GetAllPeopleResponse<People & { id: number }> & {
-  nextPage: number;
+  nextPage: number | null;
+  prevPage: number | null;
 };
