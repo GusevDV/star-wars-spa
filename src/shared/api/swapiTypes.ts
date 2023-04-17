@@ -29,12 +29,12 @@ export type SearchRequest = {
 };
 
 export type PaginatedRequest = {
-  page?: string;
+  page?: number;
 };
 
 export type GetAllPeopleRequest = (SearchRequest & PaginatedRequest) | void;
 
-export type GetAllPeopleResponse<T> = {
+export type GetAllPeopleResponse<T = People> = {
   count: number;
   next: string | null;
   previous: string | null;

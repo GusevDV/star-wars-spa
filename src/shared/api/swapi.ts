@@ -6,7 +6,6 @@ import {
   GetAllPeopleRequest,
   GetAllPeopleResponse,
   GetAllPeopleTransformedResponse,
-  People,
 } from './swapiTypes';
 
 const swapi = createApi({
@@ -24,7 +23,7 @@ const swapi = createApi({
           ...(params?.page && { page: params.page }),
         },
       }),
-      transformResponse: (response: GetAllPeopleResponse<People>) => {
+      transformResponse: (response: GetAllPeopleResponse) => {
         const { next, previous } = response;
 
         const nextUrl = next ? new URL(next) : null;
