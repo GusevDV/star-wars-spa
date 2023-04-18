@@ -27,7 +27,11 @@ const Home = () => {
 
   return (
     <>
-      <Grid mt={10} templateColumns="repeat(5, 1fr)" gap={6}>
+      <Grid
+        mt={10}
+        templateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)' }}
+        gap={6}
+      >
         {isFetching &&
           [...Array(10).keys()].map((key) => <Skeleton key={key} h={40} borderRadius={10} />)}
         {data &&
