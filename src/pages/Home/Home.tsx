@@ -1,28 +1,20 @@
-import { Box, Button, Flex, Grid, LinkBox, LinkOverlay, Skeleton } from '@chakra-ui/react';
+import { Box, Grid, LinkBox, LinkOverlay, Skeleton } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Pagination from 'widgets/Pagination';
 import { swapi } from 'shared/api';
 
-enum Navigation {
-  Previous = 'previous',
-  Next = 'next',
-}
-
 const Home = () => {
-  const [getPeople, { data, isFetching }] = swapi.useLazyGetAllPeopleQuery();
-
   const [page, setPage] = useState(1);
+  const [getPeople, { data, isFetching }] = swapi.useLazyGetAllPeopleQuery();
 
   useEffect(() => {
     getPeople();
   }, []);
 
-  const handlePageButtonClick = (navType: Navigation) => {
-    const newPage = navType === Navigation.Next ? page + 1 : page - 1;
-    getPeople({
-      page: newPage,
-    });
+  const handlePageButtonClick = (newPage: number) => {
     setPage(newPage);
+    getPeople({ page: newPage });
   };
 
   return (
@@ -32,8 +24,7 @@ const Home = () => {
         templateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)' }}
         gap={6}
       >
-        {isFetching &&
-          [...Array(10).keys()].map((key) => <Skeleton key={key} h={40} borderRadius={10} />)}
+        {isFetching && [...Array(10)].map((_, i) => <Skeleton key={i} h={40} borderRadius={10} />)}
         {data &&
           !isFetching &&
           data?.results.map((person) => (
@@ -61,20 +52,14 @@ const Home = () => {
             </LinkBox>
           ))}
       </Grid>
-      <Flex mt={10} justifyContent="space-between">
-        <Button
-          isDisabled={page === 1 || isFetching}
-          onClick={() => handlePageButtonClick(Navigation.Previous)}
-        >
-          Назад
-        </Button>
-        <Button
-          isDisabled={!data?.nextPage || isFetching}
-          onClick={() => handlePageButtonClick(Navigation.Next)}
-        >
-          Вперед
-        </Button>
-      </Flex>
+      <Pagination
+        currentPage={page}
+        totalCount={data ? data.count : 0}
+        pageSize={data ? data.results.length : 0}
+        isLoading={isFetching}
+        onPageChange={handlePageButtonClick}
+        mt={10}
+      />
     </>
   );
 };
