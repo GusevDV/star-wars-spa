@@ -98,8 +98,6 @@ describe('Pagination', () => {
 
     await user.click(nextButton);
 
-    console.log(handlePageChange.mock.calls);
-
     expect(handlePageChange).toHaveBeenCalledWith(3);
   });
 });
