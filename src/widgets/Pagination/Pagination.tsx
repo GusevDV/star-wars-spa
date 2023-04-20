@@ -23,12 +23,11 @@ const Pagination = ({
   onPageChange,
   ...rest
 }: PaginationProps) => {
-  const pagesCount = usePrevious(getPagesCount(totalCount, pageSize));
+  const pagesCount = getPagesCount(totalCount, pageSize);
+  const previousPagesCount = usePrevious(pagesCount);
 
   const handlePageButtonClick = (navType: Navigation) => {
-    const pageCount = currentPage !== pagesCount ? getPagesCount(totalCount, pageSize) : pagesCount;
-
-    if (navType === Navigation.Next && currentPage < pageCount) {
+    if (navType === Navigation.Next && currentPage < (previousPagesCount ?? pagesCount)) {
       onPageChange(currentPage + 1);
     } else if (navType === Navigation.Previous && currentPage > 1) {
       onPageChange(currentPage - 1);
@@ -41,13 +40,13 @@ const Pagination = ({
         isDisabled={currentPage === 1 || isLoading}
         onClick={() => handlePageButtonClick(Navigation.Previous)}
       >
-        Назад
+        Back
       </Button>
       <Button
-        isDisabled={pagesCount === currentPage || isLoading}
+        isDisabled={(previousPagesCount ?? pagesCount) === currentPage || isLoading}
         onClick={() => handlePageButtonClick(Navigation.Next)}
       >
-        Вперед
+        Next
       </Button>
     </Flex>
   );
