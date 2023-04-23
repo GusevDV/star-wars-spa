@@ -27,7 +27,8 @@ const Pagination = ({
   const previousPagesCount = usePrevious(pagesCount);
 
   const handlePageButtonClick = (navType: Navigation) => {
-    if (navType === Navigation.Next && currentPage < (previousPagesCount ?? pagesCount)) {
+    const totalPages = previousPagesCount ? previousPagesCount : pagesCount;
+    if (navType === Navigation.Next && currentPage < totalPages) {
       onPageChange(currentPage + 1);
     } else if (navType === Navigation.Previous && currentPage > 1) {
       onPageChange(currentPage - 1);
