@@ -45,7 +45,11 @@ const Pagination = ({
         Back
       </Button>
       <Button
-        isDisabled={(previousPagesCount ?? pagesCount) === currentPage || isLoading}
+        isDisabled={
+          totalCount < (previousPagesCount ?? pagesCount) ||
+          (previousPagesCount ?? pagesCount) === currentPage ||
+          isLoading
+        }
         colorScheme="purple"
         onClick={() => handlePageButtonClick(Navigation.Next)}
       >

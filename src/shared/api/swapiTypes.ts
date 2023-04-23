@@ -41,7 +41,9 @@ export type GetAllPeopleResponse<T = People> = {
   results: Array<T>;
 };
 
-export type GetAllPeopleTransformedResponse = GetAllPeopleResponse<People & { id: number }> & {
+export type PeopleWithId = People & { id: number };
+
+export type GetAllPeopleTransformedResponse = GetAllPeopleResponse<PeopleWithId> & {
   nextPage: number | null;
   prevPage: number | null;
 };

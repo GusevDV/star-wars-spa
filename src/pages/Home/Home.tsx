@@ -1,10 +1,9 @@
-import { Avatar, Card, Grid, LinkBox, LinkOverlay, Skeleton, Text } from '@chakra-ui/react';
+import { Grid, Skeleton, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Pagination from 'widgets/Pagination';
 import Search from 'widgets/Search';
 import { swapi } from 'shared/api';
-import { routes } from 'shared/config';
+import PersonCard from './ui/PersonCard';
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -20,9 +19,17 @@ const Home = () => {
   };
 
   const handleSearchChange = (search: string) => {
-    getPeople({ search: search });
+    if (search) {
+      getPeople({ search: search });
+    } else {
+      getPeople({ page });
+    }
+
     setPage(1);
   };
+
+  const isShowCards = data && data.results.length > 0 && !isFetching;
+  const isShowNothingFound = data && data.results.length === 0 && !isFetching;
 
   return (
     <>
@@ -33,33 +40,10 @@ const Home = () => {
         gap={6}
       >
         {isFetching && [...Array(10)].map((_, i) => <Skeleton key={i} h={40} borderRadius={10} />)}
-        {data &&
-          !isFetching &&
-          data?.results.map((person) => (
-            <LinkBox
-              as={Card}
-              display="flex"
-              justifyContent="center"
-              key={person.id}
-              minH={40}
-              bg="gray.50"
-              textAlign="center"
-              p={2}
-              transitionDuration="fast"
-              transitionTimingFunction="ease-out"
-              _hover={{
-                textDecoration: 'none',
-                transform: 'translateY(-0.3rem)',
-                boxShadow: 'xl',
-              }}
-            >
-              <LinkOverlay as={Link} to={routes.person.replace(':id', String(person.id))}>
-                <Avatar size="lg" />
-                <Text fontSize="xl" color="purple.900" mt={4}>
-                  {person.name}
-                </Text>
-              </LinkOverlay>
-            </LinkBox>
+        {isShowNothingFound && <Text>Nothing found</Text>}
+        {isShowCards &&
+          data.results.map(({ id, name }) => (
+            <PersonCard key={id} name={name} id={id}></PersonCard>
           ))}
       </Grid>
       <Pagination
