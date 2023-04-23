@@ -1,5 +1,6 @@
 import { Container } from '@chakra-ui/react';
 import * as React from 'react';
+import { PropsWithChildren } from 'react';
 import { Outlet } from 'react-router-dom';
 
 export type MainLayoutProps = {
@@ -7,12 +8,12 @@ export type MainLayoutProps = {
   footer?: React.ReactNode | null;
 };
 
-export const MainLayout = ({ header, footer }: MainLayoutProps) => {
+const MainLayout = ({ header, footer, children }: PropsWithChildren<MainLayoutProps>) => {
   return (
     <>
       {header ?? null}
-      <Container as={'main'} maxW="container.xl" pt={10}>
-        <Outlet />
+      <Container as={'main'} maxW="container.xl" pt={10} data-testid="main-container">
+        {children ? children : <Outlet />}
       </Container>
       {footer ?? null}
     </>
