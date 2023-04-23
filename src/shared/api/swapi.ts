@@ -6,6 +6,7 @@ import {
   GetAllPeopleRequest,
   GetAllPeopleResponse,
   GetAllPeopleTransformedResponse,
+  GetHeroByIdResponse,
 } from './swapiTypes';
 
 const swapi = createApi({
@@ -43,7 +44,7 @@ const swapi = createApi({
         };
       },
     }),
-    getPeopleById: builder.query<void, void>({
+    getHeroById: builder.query<GetHeroByIdResponse, string>({
       query: (id) => ({
         url: `/people/${id}`,
         method: 'GET',
