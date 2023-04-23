@@ -2,6 +2,7 @@ import { Box, Grid, LinkBox, LinkOverlay, Skeleton } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from 'widgets/Pagination';
+import Search from 'widgets/Search';
 import { swapi } from 'shared/api';
 
 const Home = () => {
@@ -10,15 +11,21 @@ const Home = () => {
 
   useEffect(() => {
     getPeople();
-  }, []);
+  }, [getPeople]);
 
-  const handlePageButtonClick = (newPage: number) => {
-    setPage(newPage);
-    getPeople({ page: newPage });
+  const handlePageButtonClick = (page: number) => {
+    setPage(page);
+    getPeople({ page });
+  };
+
+  const handleSearchChange = (search: string) => {
+    getPeople({ search: search });
+    setPage(1);
   };
 
   return (
     <>
+      <Search onChange={handleSearchChange} />
       <Grid
         mt={10}
         templateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)' }}
