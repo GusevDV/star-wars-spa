@@ -1,4 +1,4 @@
-import { Box, Grid, LinkBox, LinkOverlay, Skeleton } from '@chakra-ui/react';
+import { Avatar, Card, Grid, LinkBox, LinkOverlay, Skeleton, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from 'widgets/Pagination';
@@ -37,14 +37,13 @@ const Home = () => {
           !isFetching &&
           data?.results.map((person) => (
             <LinkBox
-              as={Box}
+              as={Card}
+              display="flex"
+              justifyContent="center"
               key={person.id}
-              boxShadow="md"
-              h={40}
+              minH={40}
               bg="gray.50"
-              borderRadius={10}
               textAlign="center"
-              color="gray.900"
               p={2}
               transitionDuration="fast"
               transitionTimingFunction="ease-out"
@@ -55,7 +54,10 @@ const Home = () => {
               }}
             >
               <LinkOverlay as={Link} to={routes.person.replace(':id', String(person.id))}>
-                {person.name}
+                <Avatar size="lg" />
+                <Text fontSize="xl" color="purple.900" mt={4}>
+                  {person.name}
+                </Text>
               </LinkOverlay>
             </LinkBox>
           ))}

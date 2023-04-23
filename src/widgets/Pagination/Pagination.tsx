@@ -39,12 +39,14 @@ const Pagination = ({
     <Flex justifyContent="space-between" {...rest}>
       <Button
         isDisabled={currentPage === 1 || isLoading}
+        colorScheme="purple"
         onClick={() => handlePageButtonClick(Navigation.Previous)}
       >
         Back
       </Button>
       <Button
         isDisabled={(previousPagesCount ?? pagesCount) === currentPage || isLoading}
+        colorScheme="purple"
         onClick={() => handlePageButtonClick(Navigation.Next)}
       >
         Next

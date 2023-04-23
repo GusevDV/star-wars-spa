@@ -22,8 +22,10 @@ export const Person = () => {
   return (
     <>
       <Skeleton isLoaded={!isLoading}>
-        <Flex justifyContent="space-between" alignItems="center" py={[4, 10]} flexWrap="wrap">
-          <Heading pr={6}>{data.name}</Heading>
+        <Flex justifyContent="space-between" alignItems="center" py={[2, 4]} flexWrap="wrap">
+          <Heading pr={6} color="gray.800">
+            {data.name}
+          </Heading>
           <Box>
             <Text color="gray.400" fontSize="sm">
               created: {moment(data.created).format('MMM Do YYYY, h:mm:ss a')}
@@ -34,7 +36,6 @@ export const Person = () => {
           </Box>
         </Flex>
       </Skeleton>
-      <Divider />
       <Grid
         mt={10}
         templateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)' }}
@@ -43,7 +44,9 @@ export const Person = () => {
         {filteredKeys.map((key) => {
           const name = snakeCaseToPhrase(key);
           const value = data[key];
-          return <PeopleProperty name={name} value={typeof value === 'string' ? value : ''} />;
+          return (
+            <PeopleProperty key={key} name={name} value={typeof value === 'string' ? value : ''} />
+          );
         })}
       </Grid>
     </>

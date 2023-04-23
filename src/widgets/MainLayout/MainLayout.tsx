@@ -11,7 +11,7 @@ export const MainLayout = ({ header, footer }: MainLayoutProps) => {
   return (
     <>
       {header ?? null}
-      <Container as={'main'} maxW="container.lg">
+      <Container as={'main'} maxW="container.xl" pt={10}>
         <Outlet />
       </Container>
       {footer ?? null}
