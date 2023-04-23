@@ -1,4 +1,5 @@
-import { Divider, Flex, Heading, Skeleton, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Grid, Heading, Skeleton, Text } from '@chakra-ui/react';
+import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { People, swapi } from 'shared/api';
 import PeopleProperty from './ui/PeopleProperty';
@@ -21,18 +22,30 @@ export const Person = () => {
   return (
     <>
       <Skeleton isLoaded={!isLoading}>
-        <Heading>{data.name}</Heading>
-        <Text as="sup">created: {data.created}</Text>
-        <Text as="sup">edited: {data.edited}</Text>
+        <Flex justifyContent="space-between" alignItems="center" py={[4, 10]} flexWrap="wrap">
+          <Heading pr={6}>{data.name}</Heading>
+          <Box>
+            <Text color="gray.400" fontSize="sm">
+              created: {moment(data.created).format('MMM Do YYYY, h:mm:ss a')}
+            </Text>
+            <Text color="gray.400" fontSize="sm">
+              edited: {moment(data.edited).format('MMM Do YYYY, h:mm:ss a')}
+            </Text>
+          </Box>
+        </Flex>
       </Skeleton>
       <Divider />
-      <Flex>
+      <Grid
+        mt={10}
+        templateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)' }}
+        gap={6}
+      >
         {filteredKeys.map((key) => {
           const name = snakeCaseToPhrase(key);
           const value = data[key];
           return <PeopleProperty name={name} value={typeof value === 'string' ? value : ''} />;
         })}
-      </Flex>
+      </Grid>
     </>
   );
 };

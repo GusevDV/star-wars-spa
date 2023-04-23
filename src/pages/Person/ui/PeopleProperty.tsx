@@ -6,9 +6,9 @@ export type HeroPropertyProps = {
 };
 const PeopleProperty = ({ name, value }: HeroPropertyProps) => {
   return (
-    <Card>
+    <Card bg="gray.50" display="flex" px={5} py={4} justifyContent="start">
       <Text fontSize="sm">{name}</Text>
-      <Text fontSize="lg">{value}</Text>
+      <Text fontSize="xl">{value}</Text>
     </Card>
   );
 };
