@@ -46,4 +46,4 @@ export type GetAllPeopleTransformedResponse = GetAllPeopleResponse<People & { id
   prevPage: number | null;
 };
 
-export type GetHeroByIdResponse = People;
+export type GetPeopleByIdResponse = People;

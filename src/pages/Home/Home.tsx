@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Pagination from 'widgets/Pagination';
 import Search from 'widgets/Search';
 import { swapi } from 'shared/api';
+import { routes } from 'shared/config';
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -53,7 +54,7 @@ const Home = () => {
                 boxShadow: 'xl',
               }}
             >
-              <LinkOverlay as={Link} to={'/'}>
+              <LinkOverlay as={Link} to={routes.person.replace(':id', String(person.id))}>
                 {person.name}
               </LinkOverlay>
             </LinkBox>
