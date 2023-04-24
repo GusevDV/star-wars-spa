@@ -3,7 +3,6 @@ import { render, render as rtlRender } from '@testing-library/react';
 import { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Home from '../../pages/Home';
 import { swapi } from '../api';
 
 export const renderWithRouter = (component: ReactNode) => {
