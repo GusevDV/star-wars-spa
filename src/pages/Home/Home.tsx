@@ -39,7 +39,10 @@ const Home = () => {
         templateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)' }}
         gap={6}
       >
-        {isFetching && [...Array(10)].map((_, i) => <Skeleton key={i} h={40} borderRadius={10} />)}
+        {isFetching &&
+          [...Array(10)].map((_, i) => (
+            <Skeleton data-testid="skeleton" key={i} h={40} borderRadius={10} />
+          ))}
         {isShowNothingFound && <Text>Nothing found</Text>}
         {isShowCards &&
           data.results.map(({ id, name }) => (
