@@ -1,17 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import { routes } from 'shared/config';
+import { renderWithRouter } from 'shared/utils';
 import PersonCard, { PersonCardProps } from '../ui/PersonCard';
 
 describe('PersonCard', () => {
   const defaultProps: PersonCardProps = {
     id: 1,
     name: 'Luke Skywalker',
-  };
-
-  const renderWithRouter = (component: React.ReactNode) => {
-    return render(<Router>{component}</Router>);
   };
 
   it('displays the avatar, name, and link', () => {
