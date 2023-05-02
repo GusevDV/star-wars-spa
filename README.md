@@ -24,4 +24,4 @@ This application includes tests to ensure that it functions as intended. To run 
 
 ### Project Structure
 
-This project uses the [Feature Sliced Design](https://github.com/feature-sliced/documentation/blob/master/ru-RU/index.md) architectural methodology to organize the codebase into small, reusable features. This makes it easy to maintain and extend the application over time.
+This project uses the [Feature Sliced Design](https://feature-sliced.design/docs) architectural methodology to organize the codebase into small, reusable features. This makes it easy to maintain and extend the application over time.
