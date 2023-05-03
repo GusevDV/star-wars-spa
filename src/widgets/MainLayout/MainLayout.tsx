@@ -12,7 +12,7 @@ const MainLayout = ({ header, footer, children }: PropsWithChildren<MainLayoutPr
   return (
     <>
       {header ?? null}
-      <Container as={'main'} maxW="container.xl" pt={10} data-testid="main-container">
+      <Container as={'main'} maxW="container.xl" py={10} data-testid="main-container">
         {children ? children : <Outlet />}
       </Container>
       {footer ?? null}
