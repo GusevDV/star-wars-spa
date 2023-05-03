@@ -1,7 +1,8 @@
 import { Avatar, Box, Card, Divider, Flex, Grid, Heading, Skeleton, Text } from '@chakra-ui/react';
 import moment from 'moment';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import Error from 'widgets/Error';
 import { People, swapi } from 'shared/api';
 import PeopleProperty from './ui/PeopleProperty';
 import { snakeCaseToPhrase } from './utils/utils';
@@ -10,7 +11,13 @@ const filters = ['eye_color', 'birth_year', 'gender', 'hair_color', 'height', 'm
 
 export const Person = () => {
   const { id } = useParams();
-  const { data, isFetching, isError } = swapi.useGetPeopleByIdQuery(id as string);
+  const [getPeopleById, { data, isFetching, isError, error }] = swapi.useLazyGetPeopleByIdQuery();
+
+  useEffect(() => {
+    if (id) {
+      getPeopleById(id);
+    }
+  }, [id]);
 
   const filteredKeys = useMemo(
     () =>
@@ -20,8 +27,13 @@ export const Person = () => {
     [data]
   );
 
-  if (isError) {
-    return <Text>Something went wrong</Text>;
+  if (isError && error) {
+    return (
+      <Error
+        code={'code' in error ? error.code : undefined}
+        onReload={() => getPeopleById(id as string)}
+      />
+    );
   }
 
   return (
@@ -67,6 +79,7 @@ export const Person = () => {
           >
             {isFetching && filters.map((key) => <Skeleton h={'80px'} key={key} />)}
             {data &&
+              !isFetching &&
               filteredKeys.map((key) => {
                 const name = snakeCaseToPhrase(key);
                 const value = data[key];

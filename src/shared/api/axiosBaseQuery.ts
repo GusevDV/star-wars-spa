@@ -28,6 +28,7 @@ const axiosBaseQuery =
     try {
       const result = await axios({
         url: baseUrl + url,
+        timeout: 10000,
         method,
         data,
         ...(headers && { headers }),
@@ -38,7 +39,7 @@ const axiosBaseQuery =
     } catch (axiosError) {
       const err = axiosError as AxiosError;
       return {
-        error: { status: err.response?.status, data: err.response?.data },
+        error: { status: err.response?.status, data: err.response?.data, code: err.code },
       };
     }
   };
