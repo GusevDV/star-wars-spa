@@ -5,8 +5,11 @@ import Search from 'widgets/Search';
 import { swapi } from 'shared/api';
 import PersonCard from './ui/PersonCard';
 
+const firstPage = 1;
+const skeletonCount = 10;
+
 const Home = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(firstPage);
   const [getPeople, { data, isFetching }] = swapi.useLazyGetAllPeopleQuery();
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const Home = () => {
       getPeople({ page });
     }
 
-    setPage(1);
+    setPage(firstPage);
   };
 
   const isShowCards = data && data.results.length > 0 && !isFetching;
@@ -40,7 +43,7 @@ const Home = () => {
         gap={6}
       >
         {isFetching &&
-          [...Array(10)].map((_, i) => (
+          [...Array(skeletonCount)].map((_, i) => (
             <Skeleton data-testid="skeleton" key={i} h={40} borderRadius={10} />
           ))}
         {isShowNothingFound && <Text>Nothing found</Text>}
@@ -50,9 +53,9 @@ const Home = () => {
           ))}
       </Grid>
       <Pagination
+        isPreviousExists={!!data?.previous}
+        isNextExists={!!data?.next}
         currentPage={page}
-        totalCount={data ? data.count : 0}
-        pageSize={data ? data.results.length : 0}
         isLoading={isFetching}
         onPageChange={handlePageButtonClick}
         mt={10}

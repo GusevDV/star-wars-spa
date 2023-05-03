@@ -10,9 +10,9 @@ describe('Pagination', () => {
   test('next and previous button should disabled when page is loading', () => {
     render(
       <Pagination
+        isPreviousExists={true}
+        isNextExists={true}
         currentPage={1}
-        totalCount={30}
-        pageSize={10}
         isLoading={true}
         onPageChange={vi.fn()}
       />
@@ -25,12 +25,12 @@ describe('Pagination', () => {
     expect(nextButton).toBeDisabled();
   });
 
-  test('previous button should disabled on the first page', () => {
+  test("previous button should disabled when previous page doesn't exist", () => {
     render(
       <Pagination
+        isPreviousExists={false}
+        isNextExists={true}
         currentPage={1}
-        totalCount={30}
-        pageSize={10}
         isLoading={false}
         onPageChange={vi.fn()}
       />
@@ -41,12 +41,12 @@ describe('Pagination', () => {
     expect(prevButton).toBeDisabled();
   });
 
-  test('next button should disabled on the last page', () => {
+  test("next button should disabled when next page doesn't exist", () => {
     render(
       <Pagination
+        isPreviousExists={true}
+        isNextExists={false}
         currentPage={3}
-        totalCount={30}
-        pageSize={10}
         isLoading={false}
         onPageChange={vi.fn()}
       />
@@ -62,9 +62,9 @@ describe('Pagination', () => {
 
     render(
       <Pagination
+        isPreviousExists={true}
+        isNextExists={true}
         currentPage={2}
-        totalCount={30}
-        pageSize={10}
         isLoading={false}
         onPageChange={handlePageChange}
       />
@@ -83,9 +83,9 @@ describe('Pagination', () => {
 
     render(
       <Pagination
+        isPreviousExists={true}
+        isNextExists={true}
         currentPage={2}
-        totalCount={30}
-        pageSize={10}
         isLoading={false}
         onPageChange={handlePageChange}
       />

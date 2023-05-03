@@ -130,5 +130,23 @@
         }
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/shared/utils/mocks/handlers.ts"
+      ],
+      "rules": {
+        "sonarjs/no-duplicate-string": [
+          "off"
+        ],
+        "max-lines-per-function": [
+          "off"
+        ],
+        "sonarjs/no-identical-functions": [
+          "off"
+        ]
+      }
+    }
+  ]
 }
