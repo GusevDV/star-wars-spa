@@ -1,5 +1,6 @@
 import { Grid, Skeleton, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import Error from 'widgets/Error';
 import Pagination from 'widgets/Pagination';
 import Search from 'widgets/Search';
 import { swapi } from 'shared/api';
@@ -10,7 +11,8 @@ const skeletonCount = 10;
 
 const Home = () => {
   const [page, setPage] = useState(firstPage);
-  const [getPeople, { data, isFetching }] = swapi.useLazyGetAllPeopleQuery();
+  const [search, setSearch] = useState('');
+  const [getPeople, { data, isFetching, isError, error }] = swapi.useLazyGetAllPeopleQuery();
 
   useEffect(() => {
     getPeople();
@@ -21,15 +23,24 @@ const Home = () => {
     getPeople({ page });
   };
 
-  const handleSearchChange = (search: string) => {
-    if (search) {
-      getPeople({ search: search });
+  const handleSearchChange = (searchValue: string) => {
+    if (searchValue) {
+      getPeople({ search: searchValue });
     } else {
       getPeople({ page });
     }
-
+    setSearch(searchValue);
     setPage(firstPage);
   };
+
+  if (isError && error) {
+    return (
+      <Error
+        code={'code' in error ? error.code : undefined}
+        onReload={() => getPeople({ page, ...(search && { search }) })}
+      />
+    );
+  }
 
   const isShowCards = data && data.results.length > 0 && !isFetching;
   const isShowNothingFound = data && data.results.length === 0 && !isFetching;
